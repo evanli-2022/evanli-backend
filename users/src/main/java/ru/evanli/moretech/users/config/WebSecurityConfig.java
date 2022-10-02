@@ -15,6 +15,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import ru.evanli.moretech.users.filter.AuthTokenFilter;
 import ru.evanli.moretech.users.service.AuthEntryPointJwt;
+import ru.evanli.moretech.users.service.AuthService;
 import ru.evanli.moretech.users.service.UserDetailsServiceImpl;
 import ru.evanli.moretech.users.utils.JwtUtils;
 
@@ -58,8 +59,8 @@ public class WebSecurityConfig {
     }
 
     @Bean
-    public AuthTokenFilter authenticationJwtTokenFilter(JwtUtils jwtUtils) {
-        return new AuthTokenFilter(jwtUtils, userDetailsService);
+    public AuthTokenFilter authenticationJwtTokenFilter(AuthService authService) {
+        return new AuthTokenFilter(authService, userDetailsService);
     }
 
     @Bean

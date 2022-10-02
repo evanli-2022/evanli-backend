@@ -10,6 +10,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
+import ru.evanli.moretech.users.service.AuthService;
 import ru.evanli.moretech.users.service.UserDetailsServiceImpl;
 import ru.evanli.moretech.users.utils.JwtUtils;
 
@@ -22,8 +23,8 @@ import java.io.IOException;
 @RequiredArgsConstructor
 @Component
 public class AuthTokenFilter extends OncePerRequestFilter {
-    private final JwtUtils jwtUtils;
 
+    private final AuthService authService;
     private final UserDetailsServiceImpl userDetailsService;
 
     private static final Logger logger = LoggerFactory
@@ -36,14 +37,14 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 
         try {
             String jwt = parseJwt(request);
-            if (jwt != null && jwtUtils.validateJwtToken(jwt)) {
+            if (jwt != null && authService.validateJwtToken(jwt)) {
 
-                String employeename = jwtUtils.getUserNameFromJwtToken(jwt);
+                String username = authService.getUserNameFromJwtToken(jwt);
 
-                UserDetails employeeDetails = userDetailsService.loadUserByUsername(employeename);
+                UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
-                    employeeDetails, null, employeeDetails.getAuthorities()
+                    userDetails, null, userDetails.getAuthorities()
                 );
 
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));

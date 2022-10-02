@@ -2,33 +2,26 @@ package ru.evanli.moretech.users.controller;
 
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import ru.evanli.moretech.users.domain.dto.ProfileDto;
 import ru.evanli.moretech.users.domain.dto.UserDto;
-import ru.evanli.moretech.users.service.UserService;
-
-import java.util.List;
+import ru.evanli.moretech.users.service.AuthService;
 
 import static ru.evanli.moretech.users.config.OpenApiConfig.BEARER_TOKEN_SECURITY_SCHEME;
 
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/api/profile")
 @SecurityRequirement(name = BEARER_TOKEN_SECURITY_SCHEME)
 @RequiredArgsConstructor
-public class UsersController {
+public class ProfileController {
 
-    private final UserService userService;
+    private final AuthService authService;
 
     @GetMapping
-    public List<UserDto> getUsers() {
-        return userService.getAll();
-    }
-
-    @GetMapping("/{id}")
-    public UserDto getUser(@PathVariable Long id) {
-        return userService.getById(id);
+    public ProfileDto getProfile() {
+        return authService.getCurrentProfile();
     }
 }

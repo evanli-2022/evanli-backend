@@ -1,19 +1,21 @@
 package ru.evanli.moretech.users.config;
 
-import io.swagger.v3.oas.models.Components;
-import io.swagger.v3.oas.models.OpenAPI;
-import io.swagger.v3.oas.models.info.Info;
-import io.swagger.v3.oas.models.security.SecurityRequirement;
-import io.swagger.v3.oas.models.security.SecurityScheme;
-import org.springframework.context.annotation.Bean;
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
+import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
+@SecurityScheme(
+    name = OpenApiConfig.BEARER_TOKEN_SECURITY_SCHEME,
+    type = SecuritySchemeType.HTTP,
+    bearerFormat = "JWT",
+    scheme = "bearer"
+)
 public class OpenApiConfig {
 
-    private static final String BEARER_TOKEN_SECURITY_SCHEME = "JWT Token";
+    public static final String BEARER_TOKEN_SECURITY_SCHEME = "JWT Token Authentication";
 
-    @Bean
+    /*@Bean
     public OpenAPI openApiConfiguration() {
         return new OpenAPI()
             .addSecurityItem(
@@ -35,6 +37,6 @@ public class OpenApiConfig {
                 .version("1.0")
             )
             ;
-    }
+    }*/
 
 }

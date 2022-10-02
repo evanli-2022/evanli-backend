@@ -7,6 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,8 +25,8 @@ public class UserDetailsImpl implements UserDetails {
     private String password;
     private String fullName;
     private String position;
-
     private Collection<? extends GrantedAuthority> authorities;
+    private LocalDate createdAt;
 
 
     public static UserDetailsImpl build(User user) {
@@ -40,7 +41,8 @@ public class UserDetailsImpl implements UserDetails {
             user.getPassword(),
             user.getFullname(),
             user.getPosition(),
-            authorities
+            authorities,
+            user.getCreatedAt()
         );
     }
 

@@ -15,12 +15,12 @@ public class JwtUtils {
 
     private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
 
-    @Value("${knf.app.jwtExpirationMs}")
+    @Value("${jwt.expirationMs}")
     private int jwtExpirationMs;
-    @Value("${knf.app.jwtSecret}")
+    @Value("${jwt.secret}")
     private String jwtSecret;
 
-    public boolean validateJwtToken(String authToken) {
+    public static boolean validateJwtToken(String authToken, String jwtSecret) {
         try {
             Jwts.parser()
                 .setSigningKey(jwtSecret)
@@ -41,7 +41,7 @@ public class JwtUtils {
         return false;
     }
 
-    public String generateJwtToken(Authentication authentication) {
+    public static String generateJwtToken(Authentication authentication, String jwtSecret, int jwtExpirationMs) {
 
         UserDetailsImpl employeePrincipal = (UserDetailsImpl) authentication.getPrincipal();
 
@@ -53,7 +53,7 @@ public class JwtUtils {
             .compact();
     }
 
-    public String getUserNameFromJwtToken(String token) {
+    public static String getUserNameFromJwtToken(String token, String jwtSecret) {
         return Jwts.parser()
             .setSigningKey(jwtSecret)
             .parseClaimsJws(token)
