@@ -3,7 +3,8 @@ package ru.evanli.moretech.users.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.evanli.moretech.users.dto.UserDto;
+import ru.evanli.moretech.users.domain.User;
+import ru.evanli.moretech.users.domain.dto.UserDto;
 import ru.evanli.moretech.users.repository.UserRepository;
 
 import javax.persistence.EntityNotFoundException;
@@ -37,5 +38,15 @@ public class UserService {
                 .position(u.getPosition())
                 .build()
             ).orElseThrow(EntityNotFoundException::new);
+    }
+
+    @Transactional(readOnly = true)
+    public boolean existsByUsername(String username) {
+        return userRepository.existsByUsername(username);
+    }
+
+    @Transactional
+    public void save(User user) {
+        userRepository.save(user);
     }
 }

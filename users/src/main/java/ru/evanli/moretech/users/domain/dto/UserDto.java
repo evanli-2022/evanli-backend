@@ -1,4 +1,4 @@
-package ru.evanli.moretech.users.dto;
+package ru.evanli.moretech.users.domain.dto;
 
 import lombok.Builder;
 import lombok.Data;

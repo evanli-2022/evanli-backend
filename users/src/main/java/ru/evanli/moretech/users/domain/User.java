@@ -1,7 +1,12 @@
 package ru.evanli.moretech.users.domain;
 
+import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
-import ru.evanli.moretech.users.converter.UserRoleListConverter;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -10,6 +15,10 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "user", schema = "users")
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@TypeDef(name = "jsonb", typeClass = JsonBinaryType.class)
 public class User {
 
     @Id
@@ -23,8 +32,8 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @Column(name = "roles")
-    @Convert(converter = UserRoleListConverter.class)
+    @Type(type = "jsonb")
+    @Column(name = "roles", columnDefinition = "jsonb")
     private List<UserRole> roles;
 
     @Column(name = "fullname")
