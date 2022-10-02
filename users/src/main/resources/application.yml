@@ -1,3 +1,6 @@
+jwt.secret:
+  access: evanliaccesssecretevanliaccesssecretevanliaccesssecret
+  refresh: evanlirefreshsecretevanlirefreshsecretevanlirefreshsecret
 
 spring:
   datasource:

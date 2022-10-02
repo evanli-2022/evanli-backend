@@ -25,7 +25,7 @@ public class User {
 
     @Column(name = "roles")
     @Convert(converter = UserRoleListConverter.class)
-    private List<UserRole> roles;
+    private List<Role> roles;
 
     @Column(name = "fullname")
     private String fullname;

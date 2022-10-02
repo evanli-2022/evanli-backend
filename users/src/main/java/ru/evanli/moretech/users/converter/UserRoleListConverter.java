@@ -4,21 +4,21 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ru.evanli.moretech.users.domain.UserRole;
+import ru.evanli.moretech.users.domain.Role;
 
 import javax.persistence.AttributeConverter;
 import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class UserRoleListConverter implements AttributeConverter<List<UserRole>, String> {
+public class UserRoleListConverter implements AttributeConverter<List<Role>, String> {
 
     private static final Logger logger = LoggerFactory.getLogger(UserRoleListConverter.class);
 
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
     @Override
-    public String convertToDatabaseColumn(List<UserRole> attribute) {
+    public String convertToDatabaseColumn(List<Role> attribute) {
         String dbData = null;
         try {
             dbData = objectMapper.writeValueAsString(
@@ -34,12 +34,12 @@ public class UserRoleListConverter implements AttributeConverter<List<UserRole>,
     }
 
     @Override
-    public List<UserRole> convertToEntityAttribute(String dbData) {
-        List<UserRole> customerInfo = null;
+    public List<Role> convertToEntityAttribute(String dbData) {
+        List<Role> customerInfo = null;
         try {
-            customerInfo = (List<UserRole>) objectMapper.readValue(dbData, List.class)
+            customerInfo = (List<Role>) objectMapper.readValue(dbData, List.class)
                     .stream()
-                    .map(r -> UserRole.valueOf((String) r))
+                    .map(r -> Role.valueOf((String) r))
                     .collect(Collectors.toList());
         } catch (final IOException e) {
             logger.error("JSON reading error", e);

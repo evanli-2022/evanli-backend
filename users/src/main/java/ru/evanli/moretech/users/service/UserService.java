@@ -1,13 +1,16 @@
 package ru.evanli.moretech.users.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.evanli.moretech.users.domain.User;
 import ru.evanli.moretech.users.dto.UserDto;
 import ru.evanli.moretech.users.repository.UserRepository;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -37,5 +40,9 @@ public class UserService {
                 .position(u.getPosition())
                 .build()
             ).orElseThrow(EntityNotFoundException::new);
+    }
+
+    public Optional<User> getByLogin(@NonNull String username) {
+        return userRepository.getByUsername(username);
     }
 }
