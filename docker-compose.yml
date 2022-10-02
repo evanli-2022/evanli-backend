@@ -1,0 +1,17 @@
+version: "3"
+services:
+  usersdb:
+    container_name: usersdb
+    image: library/postgres:14.5
+    environment:
+      POSTGRES_USER: usersuser
+      POSTGRES_PASSWORD: userspassword
+      POSTGRES_DB: users
+    networks:
+      - backend
+    ports:
+      - 5432:5432
+
+networks:
+  frontend:
+  backend:
