@@ -10,8 +10,6 @@ import ru.evanli.moretech.users.domain.UserDetailsImpl;
 import ru.evanli.moretech.users.domain.dto.ProfileDto;
 import ru.evanli.moretech.users.utils.JwtUtils;
 
-import java.util.stream.Collectors;
-
 @Service
 @RequiredArgsConstructor
 public class AuthService {
@@ -44,7 +42,7 @@ public class AuthService {
             .fullName(userDetails.getFullName())
             .position(userDetails.getPosition())
             .createdAt(userDetails.getCreatedAt())
-            .roles(userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
+            .roles(userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList())
             .build();
 
     }
