@@ -4,9 +4,9 @@ services:
     container_name: usersdb
     image: library/postgres:14.5
     environment:
-      POSTGRES_USER: usersuser
-      POSTGRES_PASSWORD: userspassword
-      POSTGRES_DB: users
+      POSTGRES_USER: evanliuser
+      POSTGRES_PASSWORD: evanlipassword
+      POSTGRES_DB: evanli
     networks:
       - backend
     ports:

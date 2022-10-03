@@ -1,5 +1,6 @@
+
 server:
-  port: 8001
+  port: 8002
 
 jwt:
   expirationMs: 76300000
@@ -32,4 +33,4 @@ liquibase:
   user: evanliuser
   password: evanlipassword
 
-springdoc.api-docs.path: /users/api-docs
+springdoc.api-docs.path: /market/api-docs

@@ -1,4 +1,4 @@
-package ru.evanli.moretech.users.config;
+package ru.evanli.moretech.market.config.config;
 
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
