@@ -1,4 +1,4 @@
-package ru.evanli.moretech.transactions.config.config;
+package ru.evanli.moretech.transactions.config;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -33,7 +33,8 @@ public class WebSecurityConfig {
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
             .authorizeRequests()
-            .antMatchers("/api/auth/**").permitAll()
+            .antMatchers("/api/wallets/**").permitAll()
+            .antMatchers("/internal/**").permitAll()
             .antMatchers("/swagger-ui/**", "/transactions/api-docs/**").permitAll()
             .anyRequest()
             .authenticated();

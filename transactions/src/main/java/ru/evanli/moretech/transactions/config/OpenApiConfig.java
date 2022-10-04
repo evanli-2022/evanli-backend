@@ -1,4 +1,4 @@
-package ru.evanli.moretech.transactions.config.config;
+package ru.evanli.moretech.transactions.config;
 
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;

@@ -1,4 +1,4 @@
-# EvAnLi ([Evgeny](https://www.linkedin.com/in/evgeny-shurupov/), [Anton](https://www.linkedin.com/in/uskov-anton-23940a76/), [Lisa](https://www.behance.net/lisasavelieva)) team
+# EvAnLi ([Evgeny](https://www.linkedin.com/in/evgeny-shurupov/), [Anton](https://github.com/uskov-anton), [Lisa](https://www.behance.net/lisasavelieva)) team
 
 ## Backend Part of EvAnLi team solution for [MoreTech Hackathon](https://moretech.vtb.ru/) in 2022
 
