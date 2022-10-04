@@ -4,6 +4,8 @@
 
 Backend part consists of 
 * [Users Microservice](/users)
+* [Transactions Microservice](/transactions)
+* [Marketplace Microservice](/market)
 
 To start you can use
 * [docker-compose.yml](/docker-compose.yml) file
