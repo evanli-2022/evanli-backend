@@ -5,17 +5,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.evanli.moretech.transactions.domain.dto.MoveDto;
+import ru.evanli.moretech.transactions.service.TransactionService;
 import ru.evanli.moretech.transactions.service.WalletService;
 
 @RestController
-@RequestMapping("/internal/api/wallets")
+@RequestMapping("/internal/api/transactions")
 @RequiredArgsConstructor
-public class InternalWalletController {
+public class InternalTransactionController {
 
-    private final WalletService walletService;
+    private final TransactionService transactionService;
 
-    @PostMapping("/move")
+    @PostMapping
     public void move(MoveDto move) {
-        walletService.move(move);
+        transactionService.move(move);
     }
 }

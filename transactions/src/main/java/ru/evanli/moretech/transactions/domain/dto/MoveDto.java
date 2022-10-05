@@ -7,4 +7,5 @@ public class MoveDto {
     private Long fromWalletId;
     private Long toUserId;
     private int amount;
+    private String comment;
 }

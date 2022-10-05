@@ -21,21 +21,4 @@ public class WalletService {
     public List<Wallet> getByUserId(Long userId) {
         return walletRepository.findByUserId(userId);
     }
-
-    @Transactional
-    public void move(MoveDto move) {
-        Wallet from = walletRepository.getReferenceById(move.getFromWalletId());
-
-        if (from.getAmount() < move.getAmount()) {
-            throw new NotEnoughMoneyException();
-        }
-
-        Wallet to = walletRepository.findByUserIdAndKind(move.getToUserId(), Wallet.WalletType.PRIVATE);
-
-        from.setAmount(from.getAmount() - move.getAmount());
-        to.setAmount(to.getAmount() + move.getAmount());
-
-        walletRepository.save(from);
-        walletRepository.save(to);
-    }
 }

@@ -10,6 +10,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import ru.evanli.moretech.transactions.filter.AuthTokenFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -17,8 +19,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @RequiredArgsConstructor
 public class WebSecurityConfig {
 
-//    TODO Create filter and uncomment this
-//    private final AuthTokenFilter authenticationJwtTokenFilter;
+    private final AuthTokenFilter authenticationJwtTokenFilter;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http)
@@ -33,26 +34,15 @@ public class WebSecurityConfig {
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
             .authorizeRequests()
-            .antMatchers("/api/wallets/**").permitAll()
             .antMatchers("/internal/**").permitAll()
             .antMatchers("/swagger-ui/**", "/transactions/api-docs/**").permitAll()
             .anyRequest()
             .authenticated();
 
-//        http.addFilterBefore(authenticationJwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(authenticationJwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
-
-    /*@Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }*/
-
-    /*@Bean
-    public AuthTokenFilter authenticationJwtTokenFilter(AuthService authService) {
-        return new AuthTokenFilter(authService, userDetailsService);
-    }*/
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {

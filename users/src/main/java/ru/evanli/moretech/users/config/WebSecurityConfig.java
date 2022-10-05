@@ -26,7 +26,6 @@ import ru.evanli.moretech.users.utils.JwtUtils;
 public class WebSecurityConfig {
 
     private final AuthEntryPointJwt unauthorizedHandler;
-    private final UserDetailsServiceImpl userDetailsService;
     private final AuthTokenFilter authenticationJwtTokenFilter;
 
     @Bean
@@ -55,11 +54,6 @@ public class WebSecurityConfig {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
-    }
-
-    @Bean
-    public AuthTokenFilter authenticationJwtTokenFilter(AuthService authService) {
-        return new AuthTokenFilter(authService, userDetailsService);
     }
 
     @Bean
