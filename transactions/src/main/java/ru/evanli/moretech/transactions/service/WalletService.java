@@ -30,9 +30,7 @@ public class WalletService {
             throw new NotEnoughMoneyException();
         }
 
-        Wallet to = walletRepository.findByUserId(move.getToUserId()).stream()
-            .filter(w -> Wallet.WalletType.PRIVATE.equals(w.getType()))
-            .findAny().orElseThrow(WalletNotFoundException::new);
+        Wallet to = walletRepository.findByUserIdAndKind(move.getToUserId(), Wallet.WalletType.PRIVATE);
 
         from.setAmount(from.getAmount() - move.getAmount());
         to.setAmount(to.getAmount() + move.getAmount());

@@ -21,10 +21,9 @@ public class Wallet {
     @Column(name = "user_id")
     private Long userId;
 
-    @Column(name = "w_type")
-//    @Enumerated(EnumType.STRING)
-    @Convert(converter = WalletTypeConverter.class)
-    private WalletType type;
+    @Column(name = "kind")
+    @Enumerated(EnumType.ORDINAL)
+    private WalletType kind;
 
     @Column(name = "title")
     private String title;
@@ -33,21 +32,8 @@ public class Wallet {
     private Integer amount;
 
     @Getter
-    public static enum WalletType {
-        PRIVATE,
-        CORPORATE;
-    }
-
-    public static class WalletTypeConverter implements AttributeConverter<WalletType, String> {
-
-        @Override
-        public String convertToDatabaseColumn(WalletType walletType) {
-            return walletType.name();
-        }
-
-        @Override
-        public WalletType convertToEntityAttribute(String s) {
-            return WalletType.valueOf(s.toUpperCase(Locale.ROOT));
-        }
+    public enum WalletType {
+        PRIVATE, //0 in database
+        CORPORATE; //1 in database
     }
 }
