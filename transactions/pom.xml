@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>ru.evanli.moretech</groupId>
 	<artifactId>transactions</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0</version>
 	<name>transactions</name>
 	<description>Transactions service</description>
 	<properties>

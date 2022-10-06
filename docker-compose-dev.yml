@@ -15,8 +15,9 @@ services:
   users:
     build:
       context: ./users
-    container_name: evanli-users
-    image: evanli-users:1.0
+      dockerfile: ./DevDockerfile
+    container_name: evanli-users-dev
+    image: evanli-users:1.0-dev
     depends_on:
       - evanlidb
     networks:
@@ -30,12 +31,16 @@ services:
       LIQUIBASE_PASSWORD: evanlipassword
     ports:
       - 8001:8001
+      - 5001:5001
+    volumes:
+      - "./users/target:/opt/project"
 
   transactions:
     build:
       context: ./transactions
-    container_name: evanli-transactions
-    image: evanli-transactions:1.0
+      dockerfile: ./DevDockerfile
+    container_name: evanli-transactions-dev
+    image: evanli-transactions:1.0-dev
     depends_on:
       - evanlidb
     networks:
@@ -47,15 +52,19 @@ services:
       LIQUIBASE_URL: jdbc:postgresql://evanlidb:5432/evanli
       LIQUIBASE_USER: evanliuser
       LIQUIBASE_PASSWORD: evanlipassword
-      AUTH_SERVER: http://evanli-users:8001/api/profile
+      AUTH_SERVER: http://users:8001/api/profile
     ports:
       - 8002:8002
+      - 5002:5002
+    volumes:
+      - "./transactions/target:/opt/project"
 
   market:
     build:
       context: ./market
-    container_name: evanli-market
-    image: evanli-market:1.0
+      dockerfile: ./DevDockerfile
+    container_name: evanli-market-dev
+    image: evanli-market:1.0-dev
     depends_on:
       - evanlidb
     networks:
@@ -69,6 +78,9 @@ services:
       LIQUIBASE_PASSWORD: evanlipassword
     ports:
       - 8003:8003
+      - 5003:5003
+    volumes:
+      - "./market/target:/opt/project"
 
 networks:
   frontend:

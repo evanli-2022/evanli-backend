@@ -7,5 +7,6 @@ Backend part consists of
 * [Transactions Microservice](/transactions)
 * [Marketplace Microservice](/market)
 
-To start you can use
-* [docker-compose.yml](/docker-compose.yml) file
+To start you should
+* type `docker-compose up` for prod mode
+* type `docker-compose --file docker-compose-dev.yml up` for dev mode
