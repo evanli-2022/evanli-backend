@@ -11,10 +11,17 @@ spec:
   rules:
     - http:
         paths:
-          - path: /((swagger-ui|users|api/(auth|users)).*)
+          - path: /((swagger-ui|users|api/(auth|users|profile)).*)
             pathType: Prefix
             backend:
               service:
                 name: evanli-users
+                port:
+                  number: 80
+          - path: /((transactions|api/(transactions|wallets)).*)
+            pathType: Prefix
+            backend:
+              service:
+                name: evanli-transactions
                 port:
                   number: 80
