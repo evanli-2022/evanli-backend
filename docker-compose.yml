@@ -16,7 +16,7 @@ services:
     build:
       context: ./users
     container_name: evanli-users
-    image: evanli-users:1.0
+    image: eshurupov/evanli-users:1.0
     depends_on:
       - evanlidb
     networks:
@@ -36,7 +36,7 @@ services:
     build:
       context: ./transactions
     container_name: evanli-transactions
-    image: evanli-transactions:1.0
+    image: eshurupov/evanli-transactions:1.0
     depends_on:
       - evanlidb
     networks:
@@ -57,7 +57,7 @@ services:
     build:
       context: ./market
     container_name: evanli-market
-    image: evanli-market:1.0
+    image: eshurupov/evanli-market:1.0
     depends_on:
       - evanlidb
     networks:

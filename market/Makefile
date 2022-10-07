@@ -1,4 +1,9 @@
 
 docker-build:
-	docker build -t evanli-market:1.0 -t evanli-market:latest .
+	docker build -t eshurupov/evanli-market:1.0 -t eshurupov/evanli-market:latest .
 
+docker-login:
+	docker login
+
+docker-push:
+	docker push --all-tags eshurupov/evanli-market
