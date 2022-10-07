@@ -15,8 +15,9 @@ services:
   users:
     build:
       context: ./users
-    container_name: evanli-users
-    image: eshurupov/evanli-users:1.0
+      dockerfile: ./DevDockerfile
+    container_name: evanli-users-dev
+    image: eshurupov/evanli-users:1.0-dev
     depends_on:
       - evanlidb
     networks:
@@ -31,12 +32,16 @@ services:
       CUSTOM_SWAGGER_SERVER_URL: http://localhost
     ports:
       - 8001:8001
+      - 5001:5001
+    volumes:
+      - "./users/target:/opt/project"
 
   transactions:
     build:
       context: ./transactions
-    container_name: evanli-transactions
-    image: eshurupov/evanli-transactions:1.0
+      dockerfile: ./DevDockerfile
+    container_name: evanli-transactions-dev
+    image: eshurupov/evanli-transactions:1.0-dev
     depends_on:
       - evanlidb
     networks:
@@ -48,16 +53,20 @@ services:
       LIQUIBASE_URL: jdbc:postgresql://evanlidb:5432/evanli
       LIQUIBASE_USER: evanliuser
       LIQUIBASE_PASSWORD: evanlipassword
-      AUTH_SERVER: http://evanli-users:8001/api/profile
+      AUTH_SERVER: http://users:8001/api/profile
       CUSTOM_SWAGGER_SERVER_URL: http://localhost
     ports:
       - 8002:8002
+      - 5002:5002
+    volumes:
+      - "./transactions/target:/opt/project"
 
   market:
     build:
       context: ./market
-    container_name: evanli-market
-    image: eshurupov/evanli-market:1.0
+      dockerfile: ./DevDockerfile
+    container_name: evanli-market-dev
+    image: eshurupov/evanli-market:1.0-dev
     depends_on:
       - evanlidb
     networks:
@@ -72,20 +81,9 @@ services:
       CUSTOM_SWAGGER_SERVER_URL: http://localhost
     ports:
       - 8003:8003
-
-  balancer:
-    build:
-      context: ./balancer
-    container_name: balancer
-    image: balancer:1.0
-    depends_on:
-      - users
-      - transactions
-      - market
-    ports:
-      - 80:80
-    networks:
-      - backend
+      - 5003:5003
+    volumes:
+      - "./market/target:/opt/project"
 
 networks:
   frontend:

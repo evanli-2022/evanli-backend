@@ -1,7 +1,6 @@
-package ru.evanli.moretech.users.config;
+package ru.evanli.moretech.market.config;
 
 import io.swagger.v3.oas.models.Components;
-import io.swagger.v3.oas.models.ExternalDocumentation;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
@@ -13,11 +12,10 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class OpenApiConfig {
-
     public static final String BEARER_TOKEN_SECURITY_SCHEME = "JWT Token Authentication";
 
     @Bean
-    public OpenAPI openApiConfiguration(@Value("${custom.swagger.server-url:localhost}") String serverUrl) {
+    public OpenAPI openApiConfiguration(@Value("${custom.swagger.server-url:http://localhost}") String serverUrl) {
         return new OpenAPI()
             .addSecurityItem(
                 new SecurityRequirement()
@@ -28,14 +26,14 @@ public class OpenApiConfig {
                     .addSecuritySchemes(BEARER_TOKEN_SECURITY_SCHEME,
                         new SecurityScheme()
                             .name(BEARER_TOKEN_SECURITY_SCHEME)
-                            .type(SecurityScheme.Type.HTTP)
+                            .type(io.swagger.v3.oas.models.security.SecurityScheme.Type.HTTP)
                             .scheme("bearer")
                             .bearerFormat("JWT")
                     )
             )
             .addServersItem(new Server().url(serverUrl))
             .info(new Info()
-                .title("Сервис пользователей и авторизации")
+                .title("Сервис маркетплейса")
                 .version("1.0")
             );
     }

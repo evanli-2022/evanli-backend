@@ -1,4 +1,4 @@
-package ru.evanli.moretech.users.config;
+package ru.evanli.moretech.transactions.config;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -9,15 +9,9 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import ru.evanli.moretech.users.filter.AuthTokenFilter;
-import ru.evanli.moretech.users.service.AuthEntryPointJwt;
-import ru.evanli.moretech.users.service.AuthService;
-import ru.evanli.moretech.users.service.UserDetailsServiceImpl;
-import ru.evanli.moretech.users.utils.JwtUtils;
+import ru.evanli.moretech.transactions.filter.AuthTokenFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -25,7 +19,6 @@ import ru.evanli.moretech.users.utils.JwtUtils;
 @RequiredArgsConstructor
 public class WebSecurityConfig {
 
-    private final AuthEntryPointJwt unauthorizedHandler;
     private final AuthTokenFilter authenticationJwtTokenFilter;
 
     @Bean
@@ -36,24 +29,19 @@ public class WebSecurityConfig {
             .cors()
             .and()
             .csrf().disable().exceptionHandling()
-            .authenticationEntryPoint(unauthorizedHandler)
+//            .authenticationEntryPoint(unauthorizedHandler)
             .and()
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
             .authorizeRequests()
-            .antMatchers("/api/auth/**").permitAll()
-            .antMatchers("/swagger-ui/**", "/users/api-docs/**").permitAll()
+            .antMatchers("/internal/**").permitAll()
+            .antMatchers("/swagger-ui/**", "/transactions/api-docs/**").permitAll()
             .anyRequest()
             .authenticated();
 
         http.addFilterBefore(authenticationJwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
-    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
     }
 
     @Bean

@@ -1,5 +1,6 @@
+
 server:
-  port: 8001
+  port: 8003
 
 jwt:
   expirationMs: 76300000
@@ -32,6 +33,4 @@ liquibase:
   user: evanliuser
   password: evanlipassword
 
-springdoc.api-docs.path: /users/api-docs
-
-custom.swagger.server-url: localhost
+springdoc.api-docs.path: /market/api-docs

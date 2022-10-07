@@ -1,9 +1,5 @@
 server:
-  port: 8001
-
-jwt:
-  expirationMs: 76300000
-  secret: knowledgeFactory
+  port: 8002
 
 spring:
   datasource:
@@ -32,6 +28,6 @@ liquibase:
   user: evanliuser
   password: evanlipassword
 
-springdoc.api-docs.path: /users/api-docs
+springdoc.api-docs.path: /transactions/api-docs
 
-custom.swagger.server-url: localhost
+auth.server: http://localhost:8001/api/profile

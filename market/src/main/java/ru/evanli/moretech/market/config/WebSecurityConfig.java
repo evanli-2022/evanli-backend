@@ -1,4 +1,4 @@
-package ru.evanli.moretech.users.config;
+package ru.evanli.moretech.market.config;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -9,15 +9,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import ru.evanli.moretech.users.filter.AuthTokenFilter;
-import ru.evanli.moretech.users.service.AuthEntryPointJwt;
-import ru.evanli.moretech.users.service.AuthService;
-import ru.evanli.moretech.users.service.UserDetailsServiceImpl;
-import ru.evanli.moretech.users.utils.JwtUtils;
 
 @Configuration
 @EnableWebSecurity
@@ -25,8 +17,8 @@ import ru.evanli.moretech.users.utils.JwtUtils;
 @RequiredArgsConstructor
 public class WebSecurityConfig {
 
-    private final AuthEntryPointJwt unauthorizedHandler;
-    private final AuthTokenFilter authenticationJwtTokenFilter;
+//    TODO Create filter and uncomment this
+//    private final AuthTokenFilter authenticationJwtTokenFilter;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http)
@@ -36,25 +28,30 @@ public class WebSecurityConfig {
             .cors()
             .and()
             .csrf().disable().exceptionHandling()
-            .authenticationEntryPoint(unauthorizedHandler)
+//            .authenticationEntryPoint(unauthorizedHandler)
             .and()
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
             .authorizeRequests()
             .antMatchers("/api/auth/**").permitAll()
-            .antMatchers("/swagger-ui/**", "/users/api-docs/**").permitAll()
+            .antMatchers("/swagger-ui/**", "/market/api-docs/**").permitAll()
             .anyRequest()
             .authenticated();
 
-        http.addFilterBefore(authenticationJwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
+//        http.addFilterBefore(authenticationJwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
 
-    @Bean
+    /*@Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
-    }
+    }*/
+
+    /*@Bean
+    public AuthTokenFilter authenticationJwtTokenFilter(AuthService authService) {
+        return new AuthTokenFilter(authService, userDetailsService);
+    }*/
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
