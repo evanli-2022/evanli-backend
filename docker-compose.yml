@@ -13,8 +13,6 @@ services:
       - 5432:5432
 
   users:
-    build:
-      context: ./users
     container_name: evanli-users
     image: eshurupov/evanli-users:1.0
     depends_on:
@@ -33,8 +31,6 @@ services:
       - 8001:8001
 
   transactions:
-    build:
-      context: ./transactions
     container_name: evanli-transactions
     image: eshurupov/evanli-transactions:1.0
     depends_on:
@@ -54,8 +50,6 @@ services:
       - 8002:8002
 
   market:
-    build:
-      context: ./market
     container_name: evanli-market
     image: eshurupov/evanli-market:1.0
     depends_on:
