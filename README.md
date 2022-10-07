@@ -12,7 +12,7 @@
 * [Transactions Microservice](/transactions)
 * [Marketplace Microservice](/market)
 
-## Microservices starting
+## Starting microservices in docker-compose
 * Production version. To start execute `docker-compose up`
   
   Before starting all services have to be built to docker image and pushed to docker hub.
@@ -22,4 +22,5 @@
 
   Before starting all services have to be built to jar-files.
 
-gfdgdf
+## Starting microservices in kubernetes
+Go to [k8s/configs](k8s/configs) folder and apply all configs here
