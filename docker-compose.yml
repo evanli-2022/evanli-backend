@@ -28,6 +28,7 @@ services:
       LIQUIBASE_URL: jdbc:postgresql://evanlidb:5432/evanli
       LIQUIBASE_USER: evanliuser
       LIQUIBASE_PASSWORD: evanlipassword
+      CUSTOM_SWAGGER_SERVER_URL: http://localhost
     ports:
       - 8001:8001
 
@@ -48,6 +49,7 @@ services:
       LIQUIBASE_USER: evanliuser
       LIQUIBASE_PASSWORD: evanlipassword
       AUTH_SERVER: http://evanli-users:8001/api/profile
+      CUSTOM_SWAGGER_SERVER_URL: http://localhost
     ports:
       - 8002:8002
 
@@ -67,8 +69,23 @@ services:
       LIQUIBASE_URL: jdbc:postgresql://evanlidb:5432/evanli
       LIQUIBASE_USER: evanliuser
       LIQUIBASE_PASSWORD: evanlipassword
+      CUSTOM_SWAGGER_SERVER_URL: http://localhost
     ports:
       - 8003:8003
+
+  balancer:
+    build:
+      context: ./balancer
+    container_name: balancer
+    image: balancer:1.0
+    depends_on:
+      - users
+      - transactions
+      - market
+    ports:
+      - 80:80
+    networks:
+      - backend
 
 networks:
   frontend:

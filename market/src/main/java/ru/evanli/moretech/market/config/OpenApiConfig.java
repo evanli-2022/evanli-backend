@@ -1,4 +1,4 @@
-package ru.evanli.moretech.transactions.config;
+package ru.evanli.moretech.market.config;
 
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
@@ -33,7 +33,7 @@ public class OpenApiConfig {
             )
             .addServersItem(new Server().url(serverUrl))
             .info(new Info()
-                .title("Сервис кошельков и транзакций")
+                .title("Сервис маркетплейса")
                 .version("1.0")
             );
     }

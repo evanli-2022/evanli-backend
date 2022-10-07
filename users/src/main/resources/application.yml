@@ -33,3 +33,5 @@ liquibase:
   password: evanlipassword
 
 springdoc.api-docs.path: /users/api-docs
+
+custom.swagger.server-url: localhost

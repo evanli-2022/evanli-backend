@@ -1,4 +1,4 @@
-package ru.evanli.moretech.market.config.config;
+package ru.evanli.moretech.market.config;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
