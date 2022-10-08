@@ -11,10 +11,7 @@
 * [Marketplace Microservice](/market)
 
 ## Starting microservices in docker-compose
-* Production version. To start execute `docker-compose up`
-  
-  Before starting all services have to be built to docker image and pushed to docker hub.
-  
+* Production version. To start execute `docker-compose up`  
   
 * Development version. To start execute `docker-compose --file docker-compose-dev.yml up`
 
