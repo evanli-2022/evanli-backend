@@ -22,6 +22,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: evanli-transactions
+                name: evanli-wallets
                 port:
                   number: 80
