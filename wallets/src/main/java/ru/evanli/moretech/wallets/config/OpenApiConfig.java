@@ -1,4 +1,4 @@
-package ru.evanli.moretech.market.config;
+package ru.evanli.moretech.wallets.config;
 
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
@@ -15,7 +15,7 @@ public class OpenApiConfig {
     public static final String BEARER_TOKEN_SECURITY_SCHEME = "JWT Token Authentication";
 
     @Bean
-    public OpenAPI openApiConfiguration(@Value("${custom.swagger.server-url:http://localhost:8003}") String serverUrl) {
+    public OpenAPI openApiConfiguration(@Value("${custom.swagger.server-url:http://localhost:8002}") String serverUrl) {
         return new OpenAPI()
             .addSecurityItem(
                 new SecurityRequirement()
@@ -33,7 +33,7 @@ public class OpenApiConfig {
             )
             .addServersItem(new Server().url(serverUrl))
             .info(new Info()
-                .title("Сервис маркетплейса")
+                .title("Сервис кошельков и транзакций")
                 .version("1.0")
             );
     }

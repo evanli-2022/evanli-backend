@@ -17,7 +17,7 @@ public class OpenApiConfig {
     public static final String BEARER_TOKEN_SECURITY_SCHEME = "JWT Token Authentication";
 
     @Bean
-    public OpenAPI openApiConfiguration(@Value("${custom.swagger.server-url:localhost}") String serverUrl) {
+    public OpenAPI openApiConfiguration(@Value("${custom.swagger.server-url:http://localhost:8001}") String serverUrl) {
         return new OpenAPI()
             .addSecurityItem(
                 new SecurityRequirement()

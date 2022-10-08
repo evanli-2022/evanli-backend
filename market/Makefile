@@ -7,3 +7,5 @@ docker-login:
 
 docker-push:
 	docker push --all-tags eshurupov/evanli-market
+
+docker-build-push: docker-build docker-push
