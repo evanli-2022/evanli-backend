@@ -4,9 +4,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.evanli.moretech.wallets.domain.Transaction;
+import ru.evanli.moretech.wallets.domain.UserDetailsImpl;
 import ru.evanli.moretech.wallets.domain.Wallet;
 import ru.evanli.moretech.wallets.domain.dto.TransferData;
 import ru.evanli.moretech.wallets.domain.dto.WalletDto;
@@ -42,7 +44,10 @@ public class WalletService {
     @Transactional
     public Transaction transfer(TransferData transferData) {
 
-        Wallet from = getWalletByUserId(transferData.getFromUserId());
+        UserDetailsImpl userDetails =
+            (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        Wallet from = getWalletByUserId(userDetails.getId());
 
         Wallet to = getWalletByUserId(transferData.getToUserId());
 
@@ -58,7 +63,7 @@ public class WalletService {
 
         return transactionService.save(
             Transaction.builder()
-                .fromUserId(transferData.getFromUserId())
+                .fromUserId(userDetails.getId())
                 .toUserId(transferData.getToUserId())
                 .amount(transferData.getAmount())
                 .hash(response.getTransaction())
