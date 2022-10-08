@@ -1,6 +1,6 @@
 
 docker-build:
-	docker build -t eshurupov/evanli-wallets:1.0 -t eshurupov/evanli-wallets:latest .
+	docker build -t eshurupov/evanli-wallets:1.1 -t eshurupov/evanli-wallets:latest .
 
 docker-login:
 	docker login

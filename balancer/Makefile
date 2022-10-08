@@ -1,6 +1,6 @@
 
 docker-build:
-	docker build -t eshurupov/evanli-balancer:1.0 -t eshurupov/evanli-balancer:latest .
+	docker build -t eshurupov/evanli-balancer:1.1 -t eshurupov/evanli-balancer:latest .
 
 docker-login:
 	docker login
