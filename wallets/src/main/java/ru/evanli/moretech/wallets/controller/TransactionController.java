@@ -44,11 +44,6 @@ public class TransactionController {
 
     @PutMapping
     public void refresh() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                transactionService.refresh();
-            }
-        }).start();
+        new Thread(transactionService::refresh).start();
     }
 }
