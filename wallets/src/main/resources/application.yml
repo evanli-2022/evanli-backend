@@ -1,9 +1,5 @@
 server:
-  port: 8001
-
-jwt:
-  expirationMs: 76300000
-  secret: knowledgeFactory
+  port: 8002
 
 spring:
   datasource:
@@ -32,4 +28,11 @@ liquibase:
   user: evanliuser
   password: evanlipassword
 
-springdoc.api-docs.path: /users/api-docs
+springdoc.api-docs.path: /wallets/api-docs
+
+auth.server: http://localhost:8001/api/profile
+
+wallet.api:
+  prefix: https://hackathon.lsp.team/hk
+  defaultPublicKey: "0x60AE5659fa93dA742fE3A4Caf372d78aBa80A50F"
+  defaultPrivateKey: "aada77c4e14d9c6bd79c3c2c7d87eabf260a297ebdd33275e038e737fd434e74"

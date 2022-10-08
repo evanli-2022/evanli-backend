@@ -34,7 +34,7 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/signin")
-    public ResponseEntity<?> authenticateEmployee(LoginRequest loginRequest) {
+    public ResponseEntity<?> authenticate(LoginRequest loginRequest) {
 
         Authentication authentication = authenticationManager.authenticate(
             new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword())
@@ -55,7 +55,7 @@ public class AuthController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<?> registerUser(SignupRequest signUpRequest) {
+    public ResponseEntity<?> register(SignupRequest signUpRequest) {
 
         if (userService.existsByUsername(signUpRequest.getUsername())) {
 

@@ -1,7 +1,7 @@
 version: "3"
 services:
-  evanlidb:
-    container_name: evanlidb
+  evanli-postgres:
+    container_name: evanli-postgres
     image: library/postgres:14.5
     environment:
       POSTGRES_USER: evanliuser
@@ -19,47 +19,45 @@ services:
     container_name: evanli-users-dev
     image: eshurupov/evanli-users:1.0-dev
     depends_on:
-      - evanlidb
+      - evanli-postgres
     networks:
       - backend
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://evanlidb:5432/evanli
+      SPRING_DATASOURCE_URL: jdbc:postgresql://evanli-postgres:5432/evanli
       SPRING_DATASOURCE_USERNAME: evanliuser
       SPRING_DATASOURCE_PASSWORD: evanlipassword
-      LIQUIBASE_URL: jdbc:postgresql://evanlidb:5432/evanli
+      LIQUIBASE_URL: jdbc:postgresql://evanli-postgres:5432/evanli
       LIQUIBASE_USER: evanliuser
       LIQUIBASE_PASSWORD: evanlipassword
-      CUSTOM_SWAGGER_SERVER_URL: http://localhost
     ports:
       - 8001:8001
       - 5001:5001
     volumes:
       - "./users/target:/opt/project"
 
-  transactions:
+  wallets:
     build:
-      context: ./transactions
+      context: ./wallets
       dockerfile: ./DevDockerfile
-    container_name: evanli-transactions-dev
-    image: eshurupov/evanli-transactions:1.0-dev
+    container_name: evanli-wallets-dev
+    image: eshurupov/evanli-wallets:1.0-dev
     depends_on:
-      - evanlidb
+      - evanli-postgres
     networks:
       - backend
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://evanlidb:5432/evanli
+      SPRING_DATASOURCE_URL: jdbc:postgresql://evanli-postgres:5432/evanli
       SPRING_DATASOURCE_USERNAME: evanliuser
       SPRING_DATASOURCE_PASSWORD: evanlipassword
-      LIQUIBASE_URL: jdbc:postgresql://evanlidb:5432/evanli
+      LIQUIBASE_URL: jdbc:postgresql://evanli-postgres:5432/evanli
       LIQUIBASE_USER: evanliuser
       LIQUIBASE_PASSWORD: evanlipassword
       AUTH_SERVER: http://users:8001/api/profile
-      CUSTOM_SWAGGER_SERVER_URL: http://localhost
     ports:
       - 8002:8002
       - 5002:5002
     volumes:
-      - "./transactions/target:/opt/project"
+      - "./wallets/target:/opt/project"
 
   market:
     build:
@@ -68,23 +66,35 @@ services:
     container_name: evanli-market-dev
     image: eshurupov/evanli-market:1.0-dev
     depends_on:
-      - evanlidb
+      - evanli-postgres
     networks:
       - backend
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://evanlidb:5432/evanli
+      SPRING_DATASOURCE_URL: jdbc:postgresql://evanli-postgres:5432/evanli
       SPRING_DATASOURCE_USERNAME: evanliuser
       SPRING_DATASOURCE_PASSWORD: evanlipassword
-      LIQUIBASE_URL: jdbc:postgresql://evanlidb:5432/evanli
+      LIQUIBASE_URL: jdbc:postgresql://evanli-postgres:5432/evanli
       LIQUIBASE_USER: evanliuser
       LIQUIBASE_PASSWORD: evanlipassword
-      CUSTOM_SWAGGER_SERVER_URL: http://localhost
     ports:
       - 8003:8003
       - 5003:5003
     volumes:
       - "./market/target:/opt/project"
 
+#  balancer:
+#    build:
+#      context: ./balancer
+#    container_name: evanli-balancer
+#    image: balancer:1.0
+#    depends_on:
+#      - users
+#      - wallets
+#      - market
+#    ports:
+#      - 80:80
+#    networks:
+#      - backend
+
 networks:
-  frontend:
   backend:
