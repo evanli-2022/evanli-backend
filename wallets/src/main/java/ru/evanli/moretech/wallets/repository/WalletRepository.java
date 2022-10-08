@@ -9,5 +9,5 @@ public interface WalletRepository extends JpaRepository<Wallet, Long> {
 
     List<Wallet> findByUserId(Long userId);
 
-    Wallet findByUserIdAndKind(Long userId, Wallet.WalletType kind);
+    Wallet getTopByUserId(Long userId);
 }

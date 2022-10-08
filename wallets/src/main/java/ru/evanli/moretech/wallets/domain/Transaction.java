@@ -25,20 +25,20 @@ public class Transaction {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "from_wallet_id")
-    private Long fromWalletId;
-
     @Column(name = "from_user_id")
     private Long fromUserId;
-
-    @Column(name = "to_wallet_id")
-    private Long toWalletId;
 
     @Column(name = "to_user_id")
     private Long toUserId;
 
     @Column(name = "amount")
-    private Integer amount;
+    private Double amount;
+
+    @Column(name = "hash")
+    private String hash;
+
+    @Column(name = "status")
+    private String status;
 
     @Column(name = "comment")
     private String comment;

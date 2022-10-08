@@ -18,7 +18,7 @@ spec:
                 name: evanli-users
                 port:
                   number: 80
-          - path: /((wallets|api/(wallets)).*)
+          - path: /((wallets|api/(wallets|transactions)).*)
             pathType: Prefix
             backend:
               service:

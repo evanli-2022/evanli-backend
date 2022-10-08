@@ -1,47 +1,69 @@
 package ru.evanli.moretech.wallets.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.HttpServerErrorException;
 import ru.evanli.moretech.wallets.domain.Transaction;
-import ru.evanli.moretech.wallets.domain.Wallet;
-import ru.evanli.moretech.wallets.domain.dto.MoveDto;
-import ru.evanli.moretech.wallets.exception.NotEnoughMoneyException;
+import ru.evanli.moretech.wallets.domain.dto.TransactionStatusResponse;
+import ru.evanli.moretech.wallets.domain.dto.TransferData;
 import ru.evanli.moretech.wallets.repository.TransactionRepository;
 import ru.evanli.moretech.wallets.repository.WalletRepository;
 
+import java.util.List;
+
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class TransactionService {
 
-    private final WalletRepository walletRepository;
     private final TransactionRepository transactionRepository;
+    private final RemoteWalletApiService remoteWalletApiService;
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    public Transaction save(Transaction transaction) {
+        return transactionRepository.save(transaction);
+    }
+
+    @Transactional(readOnly = true)
+    public Transaction getByHash(String hash) {
+        return transactionRepository.getTopByHash(hash);
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    public Transaction refresh(String hash) {
+        Transaction transaction = transactionRepository.getTopByHash(hash);
+        return refresh(transaction);
+    }
 
     @Transactional
-    public void move(MoveDto move) {
-        /*Wallet from = walletRepository.getReferenceById(move.getFromWalletId());
-
-        if (from.getAmount() < move.getAmount()) {
-            throw new NotEnoughMoneyException();
+    public void refresh() {
+        log.info("Transaction refresh started");
+        List<Transaction> transactions = transactionRepository.findAll();
+        for (Transaction transaction : transactions) {
+            refresh(transaction);
         }
+    }
 
-        Wallet to = walletRepository.findByUserIdAndKind(move.getToUserId(), Wallet.WalletType.PRIVATE);
+    @Transactional(readOnly = true)
+    public List<Transaction> getAll() {
+        return transactionRepository.findAll();
+    }
 
-        from.setAmount(from.getAmount() - move.getAmount());
-        to.setAmount(to.getAmount() + move.getAmount());
-
-        Transaction transaction = Transaction.builder()
-            .fromWalletId(from.getId())
-            .fromUserId(from.getUserId())
-            .toWalletId(to.getId())
-            .toUserId(to.getUserId())
-            .amount(move.getAmount())
-            .comment(move.getComment())
-            .build();
-
-        walletRepository.save(from);
-        walletRepository.save(to);
-
-        transactionRepository.save(transaction);*/
+    private Transaction refresh(Transaction transaction) {
+        try {
+            TransactionStatusResponse statusResponse = remoteWalletApiService.getStatus(transaction.getHash());
+            transaction.setStatus(statusResponse.getStatus());
+            transaction = transactionRepository.save(transaction);
+            log.info("Transaction refreshed: {}", transaction);
+        } catch (HttpServerErrorException e) {
+            log.warn("Transaction {} status fetch failed: {}", transaction.getHash(), e.getMessage());
+        } catch (Exception e) {
+            log.warn("Transaction {} status fetch failed", transaction.getHash());
+            log.warn("Transaction status fetch failed", e);
+        }
+        return transaction;
     }
 }

@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class BalanceResponse {
-    private Integer maticAmount;
-    private Integer coinsAmount;
+    private Double maticAmount;
+    private Double coinsAmount;
 }

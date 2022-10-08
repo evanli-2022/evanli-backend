@@ -32,7 +32,7 @@ services:
 
   wallets:
     container_name: evanli-wallets
-    image: eshurupov/evanli-wallets:1.1
+    image: eshurupov/evanli-wallets:1.2
     depends_on:
       - evanli-postgres
     networks:
@@ -69,7 +69,7 @@ services:
 
   balancer:
     container_name: evanli-balancer
-    image: eshurupov/evanli-balancer:1.1
+    image: eshurupov/evanli-balancer:1.2
     depends_on:
       - users
       - wallets

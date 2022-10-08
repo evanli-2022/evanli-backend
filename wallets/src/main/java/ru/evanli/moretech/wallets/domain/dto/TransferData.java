@@ -3,9 +3,9 @@ package ru.evanli.moretech.wallets.domain.dto;
 import lombok.Data;
 
 @Data
-public class MoveDto {
-    private Long fromWalletId;
+public class TransferData {
+    private Long fromUserId;
     private Long toUserId;
-    private int amount;
+    private Double amount;
     private String comment;
 }

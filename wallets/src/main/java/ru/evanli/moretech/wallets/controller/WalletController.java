@@ -4,9 +4,10 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.evanli.moretech.wallets.domain.Wallet;
+import ru.evanli.moretech.wallets.domain.dto.TransferData;
 import ru.evanli.moretech.wallets.domain.dto.WalletDto;
 import ru.evanli.moretech.wallets.service.WalletService;
 
@@ -23,7 +24,7 @@ public class WalletController {
     private final WalletService walletService;
 
     @GetMapping("/{userId}")
-    public List<WalletDto> getWallets(@PathVariable Long userId) {
-        return walletService.getByUserId(userId);
+    public WalletDto getWallets(@PathVariable Long userId) {
+        return walletService.getWalletDtoByUserId(userId);
     }
 }
