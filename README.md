@@ -18,4 +18,6 @@
   Before starting all services have to be built to jar-files.
 
 ## Starting microservices in kubernetes
-Go to [k8s/configs](k8s/configs) folder and apply all configs here
+Go to [k8s/configs](k8s/configs) folder and apply all configs here. 
+
+Now it's deployed [here](http://146.185.243.90/swagger-ui/index.html) in k8s. 
