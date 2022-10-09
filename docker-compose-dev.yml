@@ -59,12 +59,12 @@ services:
     volumes:
       - "./wallets/target:/opt/project"
 
-  market:
+  ефылы:
     build:
-      context: ./market
+      context: ./tasks
       dockerfile: ./DevDockerfile
-    container_name: evanli-market-dev
-    image: eshurupov/evanli-market:1.0-dev
+    container_name: evanli-tasks-dev
+    image: eshurupov/evanli-tasks:1.0-dev
     depends_on:
       - evanli-postgres
     networks:
@@ -76,11 +76,12 @@ services:
       LIQUIBASE_URL: jdbc:postgresql://evanli-postgres:5432/evanli
       LIQUIBASE_USER: evanliuser
       LIQUIBASE_PASSWORD: evanlipassword
+      AUTH_SERVER: http://users:8001/api/profile
     ports:
       - 8003:8003
       - 5003:5003
     volumes:
-      - "./market/target:/opt/project"
+      - "./tasks/target:/opt/project"
 
 #  balancer:
 #    build:
@@ -90,7 +91,7 @@ services:
 #    depends_on:
 #      - users
 #      - wallets
-#      - market
+#      - tasks
 #    ports:
 #      - 80:80
 #    networks:

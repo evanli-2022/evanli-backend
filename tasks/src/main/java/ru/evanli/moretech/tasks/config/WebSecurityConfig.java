@@ -1,4 +1,4 @@
-package ru.evanli.moretech.wallets.config;
+package ru.evanli.moretech.tasks.config;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -11,7 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import ru.evanli.moretech.wallets.filter.AuthTokenFilter;
+import ru.evanli.moretech.tasks.filter.AuthTokenFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -34,7 +34,8 @@ public class WebSecurityConfig {
             .and()
             .authorizeRequests()
             .antMatchers("/internal/**").permitAll()
-            .antMatchers("/swagger-ui/**", "/wallets/api-docs/**").permitAll()
+            .antMatchers("/api/tasks/**").permitAll()
+            .antMatchers("/swagger-ui/**", "/tasks/api-docs/**").permitAll()
             .anyRequest()
             .authenticated();
 
