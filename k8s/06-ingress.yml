@@ -25,3 +25,10 @@ spec:
                 name: evanli-wallets
                 port:
                   number: 80
+          - path: /((tasks|api/(tasks|assigned-tasks)).*)
+            pathType: Prefix
+            backend:
+              service:
+                name: evanli-tasks
+                port:
+                  number: 80
