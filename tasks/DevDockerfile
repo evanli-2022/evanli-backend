@@ -1,0 +1,4 @@
+FROM bellsoft/liberica-openjdk-alpine-musl:17
+WORKDIR /opt/project
+EXPOSE 8003
+CMD ["java", "-jar", "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5002", "/opt/project/tasks-1.0.jar"]

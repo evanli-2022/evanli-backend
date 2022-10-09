@@ -1,0 +1,39 @@
+
+server:
+  port: 8003
+
+jwt:
+  expirationMs: 76300000
+  secret: knowledgeFactory
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/evanli
+    username: evanliuser
+    password: evanlipassword
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    generate-ddl: false
+    hibernate:
+      ddl-auto: none
+
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+  sql:
+    init:
+      mode: never
+
+liquibase:
+  enabled: true
+  driver-class-name: org.postgresql.Driver
+  url: jdbc:postgresql://localhost:5432/evanli
+  user: evanliuser
+  password: evanlipassword
+
+springdoc.api-docs.path: /tasks/api-docs
+
+auth.server: http://localhost:8001/api/profile
+wallet.service:

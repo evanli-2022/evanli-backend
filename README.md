@@ -8,7 +8,7 @@
 ## Backend part consists of 
 * [Users Microservice](/users)
 * [Transactions Microservice](/transactions)
-* [Marketplace Microservice](/market)
+* [Initiatives Microservice](/initiatives)
 
 ## Starting microservices in docker-compose
 * Production version. To start execute `docker-compose up`  
