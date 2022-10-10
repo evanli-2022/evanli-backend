@@ -27,43 +27,43 @@ spec:
           env:
             - name: JWT_SECRET
               valueFrom:
-                secretKeyRef:
-                  name: evanlisecrets
+                configMapKeyRef:
+                  name: evanliconfig
                   key: jwt_secret
             - name: SPRING_DATASOURCE_URL
               valueFrom:
-                secretKeyRef:
-                  name: evanlisecrets
+                configMapKeyRef:
+                  name: evanliconfig
                   key: evanli_db_jdbcurl
             - name: SPRING_DATASOURCE_USERNAME
               valueFrom:
-                secretKeyRef:
-                  name: evanlisecrets
+                configMapKeyRef:
+                  name: evanliconfig
                   key: evanli_db_username
             - name: SPRING_DATASOURCE_PASSWORD
               valueFrom:
-                secretKeyRef:
-                  name: evanlisecrets
+                configMapKeyRef:
+                  name: evanliconfig
                   key: evanli_db_password
             - name: LIQUIBASE_URL
               valueFrom:
-                secretKeyRef:
-                  name: evanlisecrets
+                configMapKeyRef:
+                  name: evanliconfig
                   key: evanli_db_jdbcurl
             - name: LIQUIBASE_USER
               valueFrom:
-                secretKeyRef:
-                  name: evanlisecrets
+                configMapKeyRef:
+                  name: evanliconfig
                   key: evanli_db_username
             - name: LIQUIBASE_PASSWORD
               valueFrom:
-                secretKeyRef:
-                  name: evanlisecrets
+                configMapKeyRef:
+                  name: evanliconfig
                   key: evanli_db_password
             - name: CUSTOM_SWAGGER_SERVER_URL
               valueFrom:
-                secretKeyRef:
-                  name: evanlisecrets
+                configMapKeyRef:
+                  name: evanliconfig
                   key: evanli_host
             - name: AUTH_SERVER
               value: http://evanli-users.default.svc.cluster.local/api/profile

@@ -1,0 +1,14 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: evanliconfig
+  namespace: default
+data:
+  secretword: secretword from k8s secret
+  evanli_db_username: evanliuser
+  evanli_db_password: evanlipassword
+  evanli_db_database: evanli
+  evanli_db_jdbcurl: jdbc:postgresql://evanli-postgres.default.svc.cluster.local:5432/evanli
+  jwt_secret: 5Nt0$51Xi6u@
+  evanli_host: http://146.185.243.90

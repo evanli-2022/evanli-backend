@@ -27,18 +27,18 @@ spec:
           env:
             - name: POSTGRES_USER
               valueFrom:
-                secretKeyRef:
-                  name: evanlisecrets
+                configMapKeyRef:
+                  name: evanliconfig
                   key: evanli_db_username
             - name: POSTGRES_PASSWORD
               valueFrom:
-                secretKeyRef:
-                  name: evanlisecrets
+                configMapKeyRef:
+                  name: evanliconfig
                   key: evanli_db_password
             - name: POSTGRES_DB
               valueFrom:
-                secretKeyRef:
-                  name: evanlisecrets
+                configMapKeyRef:
+                  name: evanliconfig
                   key: evanli_db_database
 
 
